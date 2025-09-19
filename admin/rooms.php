@@ -73,7 +73,7 @@
                 <input type="text" name="name" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Area</label>
+                <label class="form-label fw-bold">Area (sq. ft.)</label>
                 <input type="number" min="1" name="area" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
@@ -177,7 +177,7 @@
                 <input type="text" name="name" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Area</label>
+                <label class="form-label fw-bold">Area (sq. ft.)</label>
                 <input type="number" min="1" name="area" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
@@ -232,6 +232,9 @@
                   ?>
                 </div>
               </div>
+
+            <!-- ------------ -->
+
               <div class="col-12 mb-3">
                 <label class="form-label fw-bold">Meal Plans</label>
                 <div class="row">
@@ -250,6 +253,9 @@
                   ?>
                 </div>
               </div>
+
+              <!-- ------------ -->
+
               <div class="col-12 mb-3">
                 <label class="form-label fw-bold">Description</label>
                 <textarea name="desc" rows="4" class="form-control shadow-none" required></textarea>

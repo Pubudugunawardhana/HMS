@@ -91,7 +91,7 @@
             <?php 
 
               echo<<<price
-                <h4>LKR$room_data[price] per night</h4>
+                <h4>LKR$room_data[price] room per night</h4>
               price;
 
               $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`

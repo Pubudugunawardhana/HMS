@@ -88,7 +88,7 @@
                             <label class="form-label" style="font-weight: 500;">Children</label>
                             <select class="form-select shadow-none" name="children">
                                 <?php 
-                  for($i=1; $i<=$guests_res['max_children']; $i++){
+                  for($i=0; $i<=$guests_res['max_children']; $i++){
                     echo"<option value='$i'>$i</option>";
                   }
                 ?>
@@ -198,7 +198,7 @@
                 <img src="$room_thumb" class="card-img-top">
                 <div class="card-body">
                   <h5>$room_data[name]</h5>
-                  <h6 class="mb-4">LKR$room_data[price] per night</h6>
+                  <h6 class="mb-4">LKR$room_data[price] room per night</h6>
                   <div class="features mb-4">
                     <h6 class="mb-1">Features</h6>
                     $features_data

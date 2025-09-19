@@ -30,7 +30,7 @@
     
     $frm_data = filteration($_POST);
 
-    $queryMealPlans = "SELECT * FROM room_meal_plans WHERE id = ?";
+    $queryMealPlans = "SELECT * FROM room_meal_plans WHERE id  = ?";
     $meal_option = select($queryMealPlans,[$frm_data['meal_option']],'i');
     $meal_option = mysqli_fetch_assoc($meal_option);
     $meal_option_id = $meal_option['id'];

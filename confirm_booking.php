@@ -83,7 +83,7 @@
             <div class="card p-3 shadow-sm rounded">
               <img src="$room_thumb" class="img-fluid rounded mb-3">
               <h5>$room_data[name]</h5>
-              <h6>LKR$room_data[price] per night</h6>
+              <h6>LKR$room_data[price] room per night</h6>
             </div>
           data;
 
@@ -125,7 +125,7 @@
                     <label class="form-label">Number of Adults</label>
                     <select name="adult" id="adult" required  class="form-control shadow-none">
                       <?php 
-                        for($i=0;$i<=$room_data['adult'];$i++){
+                        for($i=1;$i<=$room_data['adult'];$i++){
                           echo "<option value='$i'>$i</option>";
                         }
                       ?>
@@ -148,12 +148,16 @@
                 
 
                 <div class="col-md-12 mb-3">
-                  <label class="form-label">Meal Options</label>
-                  <select name="meal_option" id="meal_option" required  class="form-control shadow-none" required>
+                  <label class="form-label">Meal Options per person</label>
+                  <select name="meal_option" id="meal_option" required class="form-control shadow-none">
                     <?php 
                       $meal_plans = json_decode($meal_plans, true);
                       foreach($meal_plans as $mp){
-                        echo "<option value='$mp[id]' price_modifier='$mp[price_modifier]'>$mp[name] - LKR $mp[price_modifier]</option>";
+                        if(strtolower(trim($mp['name'])) == 'room only'){
+                          echo "<option value='$mp[id]' price_modifier='0'>$mp[name]</option>";
+                        } else {
+                          echo "<option value='$mp[id]' price_modifier='$mp[price_modifier]'>$mp[name] - LKR $mp[price_modifier]</option>";
+                        }
                       }
                     ?>
                   </select>

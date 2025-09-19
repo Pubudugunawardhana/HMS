@@ -182,10 +182,10 @@
             return;
         }
 
-        if (!profile) {
-            alert('error', "Profile image is required!");
-            return;
-        }
+        // if (!profile) {
+        //     alert('error', "Profile image is required!");
+        //     return;
+        // }
 
         // If all validations pass, proceed with form submission
         let data = new FormData();
