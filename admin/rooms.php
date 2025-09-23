@@ -77,7 +77,7 @@
                 <input type="number" min="1" name="area" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Price</label>
+                <label class="form-label fw-bold">Room Price</label>
                 <input type="number" min="1" name="price" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
@@ -129,7 +129,7 @@
                 </div>
               </div>
               <div class="col-12 mb-3">
-                <label class="form-label fw-bold">Meal Plans</label>
+                <label class="form-label fw-bold">Meal Plans Price Per Person</label>
                 <div class="row">
                   <?php 
                     $res = selectAll('meal_plans');
@@ -181,7 +181,7 @@
                 <input type="number" min="1" name="area" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Price</label>
+                <label class="form-label fw-bold">Room Price</label>
                 <input type="number" min="1" name="price" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
@@ -236,7 +236,7 @@
             <!-- ------------ -->
 
               <div class="col-12 mb-3">
-                <label class="form-label fw-bold">Meal Plans</label>
+                <label class="form-label fw-bold">Meal Plans price Per person</label>
                 <div class="row">
                   <?php 
                     $res = selectAll('meal_plans');

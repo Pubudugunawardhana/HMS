@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,17 +8,20 @@
   <?php require('inc/links.php'); ?>
   <title><?php echo $settings_r['site_title'] ?> - CONTACT</title>
 </head>
+
 <body class="bg-light">
 
-  <?php require('inc/header.php');require_once('inc/Mailer.php'); ?>
+  <?php require('inc/header.php');
+  require_once('inc/Mailer.php'); ?>
 
   <div class="my-5 px-4">
     <h2 class="fw-bold h-font text-center">CONTACT US</h2>
     <div class="h-line bg-dark"></div>
     <p class="text-center mt-3">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      Temporibus incidunt odio quos <br> dolore commodi repudiandae 
-      tenetur consequuntur et similique asperiores.
+      <br>
+      Thank you for reaching out to us! Your inquiries are important to us, and we appreciate your interest in our products / services.
+       <br><br>
+      Our dedicated team is available to assist you on weekdays from 8:30 AM to 5:00 PM (GMT+5:30) and on Saturday from 8:30 AM to 12.30 PM (GMT+5:30). Please be assured that we are committed to responding to your inquiries promptly during these hours.
     </p>
   </div>
 
@@ -38,14 +42,14 @@
             <i class="bi bi-telephone-fill"></i> +<?php echo $contact_r['pn1'] ?>
           </a>
           <br>
-          <?php 
-            if($contact_r['pn2']!=''){
-              echo<<<data
+          <?php
+          if ($contact_r['pn2'] != '') {
+            echo <<<data
                 <a href="tel: +$contact_r[pn2]" class="d-inline-block text-decoration-none text-dark">
                   <i class="bi bi-telephone-fill"></i> +$contact_r[pn2]
                 </a>
               data;
-            }
+          }
           ?>
 
 
@@ -61,14 +65,14 @@
           <?php endif; ?>
 
           <h5 class="mt-4">Follow us</h5>
-          <?php 
-            if($contact_r['tw']!=''){
-              echo<<<data
+          <?php
+          if ($contact_r['tw'] != '') {
+            echo <<<data
                 <a href="$contact_r[tw]" class="d-inline-block text-dark fs-5 me-2">
                   <i class="bi bi-twitter me-1"></i>
                 </a>
               data;
-            }
+          }
           ?>
 
           <a href="<?php echo $contact_r['fb'] ?>" class="d-inline-block text-dark fs-5 me-2">
@@ -107,36 +111,35 @@
   </div>
 
 
-  <?php 
+  <?php
 
-    if(isset($_POST['send']))
-    {
-      $mailer = new Mailer();
+  if (isset($_POST['send'])) {
+    $mailer = new Mailer();
 
-      $frm_data = filteration($_POST);
+    $frm_data = filteration($_POST);
 
-      if (!filter_var($frm_data['email'], FILTER_VALIDATE_EMAIL)) {
-        alert('error', 'Invalid email address!');
-        exit; 
-      }
-
-      $q = "INSERT INTO `user_queries`(`name`, `email`, `subject`, `message`) VALUES (?,?,?,?)";
-      $values = [$frm_data['name'],$frm_data['email'],$frm_data['subject'],$frm_data['message']];
-
-      $res = insert($q,$values,'ssss');
-      if($res==1){
-        if(!$mailer->sendContactMail($frm_data['email'], $frm_data['name'] )) {
-          alert('error','Mail not sent! Try again later.');
-        }
-        alert('success','Mail sent!');
-      }
-      else{
-        alert('error','Server Down! Try again later.');
-      }
+    if (!filter_var($frm_data['email'], FILTER_VALIDATE_EMAIL)) {
+      alert('error', 'Invalid email address!');
+      exit;
     }
+
+    $q = "INSERT INTO `user_queries`(`name`, `email`, `subject`, `message`) VALUES (?,?,?,?)";
+    $values = [$frm_data['name'], $frm_data['email'], $frm_data['subject'], $frm_data['message']];
+
+    $res = insert($q, $values, 'ssss');
+    if ($res == 1) {
+      if (!$mailer->sendContactMail($frm_data['email'], $frm_data['name'])) {
+        alert('error', 'Mail not sent! Try again later.');
+      }
+      alert('success', 'Mail sent!');
+    } else {
+      alert('error', 'Server Down! Try again later.');
+    }
+  }
   ?>
 
   <?php require('inc/footer.php'); ?>
 
 </body>
+
 </html>

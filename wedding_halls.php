@@ -27,6 +27,7 @@ try {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,6 +35,7 @@ try {
     <title><?php echo $settings_r['site_title']; ?> - Weddings</title>
     <?php require('inc/links.php'); ?>
 </head>
+
 <body class="bg-light">
 
     <?php require('inc/header.php'); ?>
@@ -41,7 +43,12 @@ try {
     <div class="my-5 px-4">
         <h2 class="fw-bold h-font text-center">OUR WEDDING HALLS</h2>
         <div class="h-line bg-dark"></div>
-        <p class="text-center mt-3">Discover our beautiful wedding halls perfect for your special day</p>
+        <p class="text-center mt-3">
+            Celebrate your love amidst the awe-inspiring natural beauty of Heritance 360, an architectural gem designed
+            by world renowned architect Geoffrey Bawa. Our forested sanctuary provides a stunning backdrop to your special day,
+            complete with an elegant architectural venue, exquisite dining options and perfect attention paid to every detail.
+            Our dedicated team of professionals will work hand-in-hand with you, ensuring your dream day turns into a cherished memory.
+        </p>
     </div>
 
     <div class="container">
@@ -61,7 +68,7 @@ try {
                                 <!-- Image Carousel -->
                                 <div id="carousel-<?php echo $hall['id']; ?>" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-indicators">
-                                        <?php 
+                                        <?php
                                         // Get wedding hall images using existing database functions
                                         $images = [];
                                         try {
@@ -79,32 +86,32 @@ try {
                                         if (!empty($images)):
                                             foreach ($images as $index => $image):
                                         ?>
-                                            <button type="button" data-bs-target="#carousel-<?php echo $hall['id']; ?>" 
-                                                    data-bs-slide-to="<?php echo $index; ?>" 
+                                                <button type="button" data-bs-target="#carousel-<?php echo $hall['id']; ?>"
+                                                    data-bs-slide-to="<?php echo $index; ?>"
                                                     class="<?php echo $index === 0 ? 'active' : ''; ?>"></button>
-                                        <?php 
+                                        <?php
                                             endforeach;
                                         endif;
                                         ?>
                                     </div>
                                     <div class="carousel-inner">
-                                        <?php 
+                                        <?php
                                         if (!empty($images)):
                                             foreach ($images as $index => $image):
                                         ?>
-                                            <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                                <img src="<?php echo WEDDING_IMG_PATH . $image['image_path']; ?>" 
-                                                     class="d-block w-100" style="height: 300px; object-fit: cover;" 
-                                                     alt="<?php echo htmlspecialchars($hall['name']); ?>">
-                                            </div>
-                                        <?php 
+                                                <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                                    <img src="<?php echo WEDDING_IMG_PATH . $image['image_path']; ?>"
+                                                        class="d-block w-100" style="height: 300px; object-fit: cover;"
+                                                        alt="<?php echo htmlspecialchars($hall['name']); ?>">
+                                                </div>
+                                            <?php
                                             endforeach;
                                         else:
-                                        ?>
+                                            ?>
                                             <div class="carousel-item active">
-                                                <img src="<?php echo SITE_URL; ?>images/default-wedding.jpg" 
-                                                     class="d-block w-100" style="height: 300px; object-fit: cover;" 
-                                                     alt="Default Wedding Hall Image">
+                                                <img src="<?php echo SITE_URL; ?>images/default-wedding.jpg"
+                                                    class="d-block w-100" style="height: 300px; object-fit: cover;"
+                                                    alt="Default Wedding Hall Image">
                                             </div>
                                         <?php endif; ?>
                                     </div>
@@ -117,24 +124,24 @@ try {
                                         </button>
                                     <?php endif; ?>
                                 </div>
-                                
+
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold"><?php echo htmlspecialchars($hall['name']); ?></h5>
                                     <p class="card-text text-muted">
                                         <?php echo nl2br(htmlspecialchars(substr($hall['description'], 0, 150))); ?>
                                         <?php if (strlen($hall['description']) > 150): ?>...<?php endif; ?>
                                     </p>
-                                    
+
                                     <div class="d-flex gap-2 mb-3">
                                         <?php if ($hall['package_pdf']): ?>
-                                            <a href="<?php echo WEDDING_PDF_PATH . $hall['package_pdf']; ?>" 
-                                               target="_blank" class="btn btn-primary btn-sm">
+                                            <a href="<?php echo WEDDING_PDF_PATH . $hall['package_pdf']; ?>"
+                                                target="_blank" class="btn btn-primary btn-sm">
                                                 More Details
                                             </a>
                                         <?php endif; ?>
-                                        
-                                        <button type="button" class="btn btn-outline-primary btn-sm" 
-                                                data-bs-toggle="modal" data-bs-target="#contactModal-<?php echo $hall['id']; ?>">
+
+                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                            data-bs-toggle="modal" data-bs-target="#contactModal-<?php echo $hall['id']; ?>">
                                             Inquire Now
                                         </button>
                                     </div>
@@ -142,7 +149,7 @@ try {
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Contact Modal for each hall -->
                     <div class="modal fade" id="contactModal-<?php echo $hall['id']; ?>" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
@@ -155,19 +162,19 @@ try {
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="name-<?php echo $hall['id']; ?>" class="form-label">Your Name *</label>
-                                            <input type="text" class="form-control" id="name-<?php echo $hall['id']; ?>" 
-                                                   name="name" required>
+                                            <input type="text" class="form-control" id="name-<?php echo $hall['id']; ?>"
+                                                name="name" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="email-<?php echo $hall['id']; ?>" class="form-label">Email Address *</label>
-                                            <input type="email" class="form-control" id="email-<?php echo $hall['id']; ?>" 
-                                                   name="email" required>
+                                            <input type="email" class="form-control" id="email-<?php echo $hall['id']; ?>"
+                                                name="email" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="message-<?php echo $hall['id']; ?>" class="form-label">Message *</label>
-                                            <textarea class="form-control" id="message-<?php echo $hall['id']; ?>" 
-                                                      name="message" rows="4" required 
-                                                      placeholder="Please provide details about your wedding requirements, preferred date, number of guests, etc."></textarea>
+                                            <textarea class="form-control" id="message-<?php echo $hall['id']; ?>"
+                                                name="message" rows="4" required
+                                                placeholder="Please provide details about your wedding requirements, preferred date, number of guests, etc."></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -187,48 +194,48 @@ try {
         // Handle contact form submissions
         document.addEventListener('DOMContentLoaded', function() {
             const contactForms = document.querySelectorAll('.contact-form');
-            
+
             contactForms.forEach(form => {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    
+
                     const formData = new FormData(this);
                     const hallId = this.getAttribute('data-hall-id');
                     formData.append('wedding_id', hallId);
                     formData.append('action', 'submit_inquiry');
-                    
+
                     // Show loading state
                     const submitBtn = this.querySelector('button[type="submit"]');
                     const originalText = submitBtn.innerHTML;
                     submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Sending...';
                     submitBtn.disabled = true;
-                    
+
                     fetch('ajax/wedding_inquiry.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data.status == 'success');
-                        if (data.status == 'success') {
-                            alert('success','Thank you! Your message has been sent successfully. We will contact you soon.');
-                            this.reset();
-                            const modal = this.closest('.modal');
-                            const modalInstance = bootstrap.Modal.getInstance(modal);
-                            modalInstance.hide();
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred. Please try again.');
-                    })
-                    .finally(() => {
-                        // Reset button state
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                    });
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data.status == 'success');
+                            if (data.status == 'success') {
+                                alert('success', 'Thank you! Your message has been sent successfully. We will contact you soon.');
+                                this.reset();
+                                const modal = this.closest('.modal');
+                                const modalInstance = bootstrap.Modal.getInstance(modal);
+                                modalInstance.hide();
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred. Please try again.');
+                        })
+                        .finally(() => {
+                            // Reset button state
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                        });
                 });
             });
         });
@@ -237,4 +244,5 @@ try {
     <?php require('inc/footer.php'); ?>
 
 </body>
-</html> 
+
+</html>
