@@ -47,6 +47,7 @@ try {
             Celebrate your love amidst the awe-inspiring natural beauty of Heritance 360, an architectural gem designed
             by world renowned architect Geoffrey Bawa. Our forested sanctuary provides a stunning backdrop to your special day,
             complete with an elegant architectural venue, exquisite dining options and perfect attention paid to every detail.
+            <br><br>
             Our dedicated team of professionals will work hand-in-hand with you, ensuring your dream day turns into a cherished memory.
         </p>
     </div>

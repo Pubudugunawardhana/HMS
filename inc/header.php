@@ -14,13 +14,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link me-2" href="facilities.php">Facilities</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link me-2" href="contact.php">Contact us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="about.php">About</a>
-        </li>
+        </li> 
         <li class="nav-item">
           <a class="nav-link" href="wedding_halls.php">Wedding</a>
         </li>
@@ -29,6 +23,13 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="experience.php">Experiences</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link me-2" href="contact.php">Contact us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.php">About us</a>
         </li>
       </ul>
       <div class="d-flex">

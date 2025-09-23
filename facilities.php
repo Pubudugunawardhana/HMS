@@ -22,11 +22,14 @@
     <h2 class="fw-bold h-font text-center">OUR FACILITIES</h2>
     <div class="h-line bg-dark"></div>
     <p class="text-center mt-3">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      Temporibus incidunt odio quos <br> dolore commodi repudiandae 
-      tenetur consequuntur et similique asperiores.
+      At Heritance 360, we provide world-class facilities designed to ensure your stay is as comfortable and memorable as possible. 
+      <br>
+      Whether you’re here for leisure, business, or a special occasion, our facilities are tailored to meet your every need.
+      <br>
+      From stylish rooms and fine dining to elegant wedding venues and relaxing leisure spaces, our facilities are designed to make every moment of your stay unforgettable.
     </p>
   </div>
+
 
   <div class="container">
     <div class="row">
