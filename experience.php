@@ -39,7 +39,11 @@ try {
     <div class="my-5 px-4">
         <h2 class="fw-bold h-font text-center">Experiences AT <?php echo $settings_r['site_title']; ?></h2>
         <div class="h-line bg-dark"></div>
-        <p class="text-center mt-3">There are plenty of things to do in Sigiriya and the Cultural Triangle. <br/>Browse a selection of exciting activities available at the hotel which will keep you active for days.</p>
+        <p class="text-center mt-3">
+            Answer the call of adventure echoing in the breeze, beckoning you to come and experience the thrills of the Indian Ocean at one of the best premium all inclusive resorts in Maldives.<br> 
+            Dive to the depths where Maldives attractions take the form of colourful coral and marine life, <br>
+            ride the waves and feel a sense of pure freedom or sail the seas towards a new horizon.
+        </p>
     </div>
 
     <div class="container">

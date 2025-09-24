@@ -25,6 +25,7 @@ try {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,6 +33,7 @@ try {
     <title><?php echo $settings_r['site_title']; ?> - Dine In</title>
     <?php require('inc/links.php'); ?>
 </head>
+
 <body class="bg-light">
 
     <?php require('inc/header.php'); ?>
@@ -39,7 +41,13 @@ try {
     <div class="my-5 px-4">
         <h2 class="fw-bold h-font text-center">DINING AT <?php echo $settings_r['site_title']; ?></h2>
         <div class="h-line bg-dark"></div>
-        <p class="text-center mt-3">Discover our beautiful dine in localtions for your special day</p>
+        <p class="text-center mt-1">
+            We, at Heritance Hotels and Resorts believe in the fine art of gastronomy and endeavours to create defining dishes from fresh produce and healthy ingredients procured from local markets. As a result of this meticulous preparation, the ingredients used in the creation of meals guests partake in, whether in the chilly inclines of the hill country or down by the coast, are locally sourced whenever possible.
+
+            <br><br>
+
+            From farmers who grow them without preservatives and fishermen who bring in a brand new catch every morning, a plate of food at a Heritance restaurant tells the tale of an evocative culinary journey.
+        </p>
     </div>
 
     <div class="container">
@@ -57,11 +65,11 @@ try {
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body p-0" style="text-align: center;">
                                 <div>
-                                    <img src="./images/dine_in/<?php echo $option['image']; ?>" 
-                                        class="d-block w-100" style="height: 300px; object-fit: cover;" 
+                                    <img src="./images/dine_in/<?php echo $option['image']; ?>"
+                                        class="d-block w-100" style="height: 300px; object-fit: cover;"
                                         alt="Default Wedding Hall Image">
                                 </div>
-                                
+
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold"><?php echo htmlspecialchars($option['name']); ?></h5>
                                     <p class="card-text text-muted">
@@ -74,8 +82,8 @@ try {
                                         Open Hours <?php echo htmlspecialchars($option['open_hours']); ?>
                                     </p>
                                     <div class="d-flex gap-2 mb-3 justify-content-center">
-                                        <a href="dine_in_details.php?id=<?php echo $option['id']; ?>" 
-                                          class="btn btn-primary btn-sm">
+                                        <a href="dine_in_details.php?id=<?php echo $option['id']; ?>"
+                                            class="btn btn-primary btn-sm">
                                             More Details
                                         </a>
                                     </div>
@@ -91,4 +99,5 @@ try {
     <?php require('inc/footer.php'); ?>
 
 </body>
-</html> 
+
+</html>
