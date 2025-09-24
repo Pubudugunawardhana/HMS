@@ -6,8 +6,8 @@ function booking_analytics(period=1)
 
   xhr.onload = function(){
     let data = JSON.parse(this.responseText);
-    document.getElementById('total_bookings').textContent = data.total_bookings;
-    document.getElementById('total_amt').textContent = 'LKR'+data.total_amt;
+    document.getElementById('total_bookings').textContent = data.total_bookings ?? 0;
+    document.getElementById('total_amt').textContent = 'LKR'+(data.total_amt ?? 0);
 
     document.getElementById('active_bookings').textContent = data.active_bookings;
     document.getElementById('active_amt').textContent = 'LKR'+data.active_amt;
@@ -28,9 +28,10 @@ function user_analytics(period=1)
   xhr.onload = function(){
     let data = JSON.parse(this.responseText);
 
-    document.getElementById('total_new_reg').textContent = data.total_new_reg;
-    document.getElementById('total_queries').textContent = data.total_queries;
-    document.getElementById('total_reviews').textContent = data.total_reviews;
+    document.getElementById('total_new_reg').textContent = data.total_new_reg ;
+    document.getElementById('total_queries').textContent = data.total_queries ;
+    document.getElementById('total_reviews').textContent = data.total_reviews ;
+
   }
 
   xhr.send('user_analytics&period='+period);

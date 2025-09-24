@@ -50,11 +50,11 @@
               </div>
               <div class="col-md-4 mb-3">
                 <label class="form-label">Phone Number</label>
-                <input name="phonenum" type="number" value="<?php echo $u_fetch['phonenum'] ?>" class="form-control shadow-none" required>
+                <input name="phonenum" type="text" value="<?php echo $u_fetch['phonenum'] ?>" class="form-control shadow-none" required pattern="^0\d{9}$" title="Enter a valid 10-digit phone number starting with 0">
               </div>
               <div class="col-md-4 mb-3">
                 <label class="form-label">Date of birth</label>
-                <input name="dob" type="date" value="<?php echo $u_fetch['dob'] ?>" class="form-control shadow-none" required>
+                <input name="dob" type="date" value="<?php echo $u_fetch['dob'] ?>" class="form-control shadow-none" required max="<?php echo date('Y-m-d'); ?>">
               </div>
               <div class="col-md-4 mb-3">
                 <label class="form-label">Province</label>

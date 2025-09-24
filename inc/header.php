@@ -122,10 +122,10 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Phone Number <span style="color:red">*</span></label>
-                <input name="phonenum" type="number" class="form-control shadow-none" required>
+                <input name="phonenum" type="text" class="form-control shadow-none" required pattern="^0\d{9}$" title="Enter a valid 10-digit phone number starting with 0">
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label">Picture </label>
+                <label class="form-label">Picture  </label>
                 <input name="profile" type="file" accept=".jpg, .jpeg, .png, .webp" class="form-control shadow-none">
               </div>
               <div class="col-md-6 mb-3">
@@ -161,6 +161,10 @@
           </div>
           <div class="text-center my-1">
             <button type="submit" class="btn btn-dark shadow-none">REGISTER</button>
+
+
+            
+
           </div>
         </div>
       </form>

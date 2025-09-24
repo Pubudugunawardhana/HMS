@@ -97,7 +97,7 @@ adminLogin();
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label fw-bold">Guide Phone No</label>
-                                    <input type="text" name="guide_phone" class="form-control shadow-none" required>
+                                    <input type="text" name="guide_phone" class="form-control shadow-none" required pattern="^0\d{9}$" title="Enter a valid 10-digit phone number starting with 0">
                                 </div>
                             </div>
                         </div>
@@ -151,7 +151,7 @@ adminLogin();
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label fw-bold">Guide Phone No</label>
-                                    <input type="text" name="guide_phone" class="form-control shadow-none" required>
+                                    <input type="text" name="guide_phone" class="form-control shadow-none" required pattern="^0\d{9}$" title="Enter a valid 10-digit phone number starting with 0">
                                 </div>
                             </div>
                             <input type="hidden" name="experience_id">
