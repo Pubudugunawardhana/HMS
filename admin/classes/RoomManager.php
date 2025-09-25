@@ -4,6 +4,10 @@ class RoomManager {
     private $conn;
     private $uploadDir;
 
+    //Encapsulation
+    //Each class encapsulates related properties and methods, 
+    //hiding internal details and exposing only necessary functionality.
+
     public function __construct(mysqli $db, string $uploadDir) {
         $this->conn = $db;
         $this->uploadDir = $uploadDir;

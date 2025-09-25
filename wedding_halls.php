@@ -164,12 +164,12 @@ try {
                                         <div class="mb-3">
                                             <label for="name-<?php echo $hall['id']; ?>" class="form-label">Your Name *</label>
                                             <input type="text" class="form-control" id="name-<?php echo $hall['id']; ?>"
-                                                name="name" required>
+                                                name="name" required pattern="^[A-Za-z\s]+$" title="Enter letters only">
                                         </div>
                                         <div class="mb-3">
                                             <label for="email-<?php echo $hall['id']; ?>" class="form-label">Email Address *</label>
                                             <input type="email" class="form-control" id="email-<?php echo $hall['id']; ?>"
-                                                name="email" required>
+                                                name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Enter a valid email address">
                                         </div>
                                         <div class="mb-3">
                                             <label for="message-<?php echo $hall['id']; ?>" class="form-label">Message *</label>

@@ -2,6 +2,10 @@
 class BookingManager {
     private $conn;
 
+    //Encapsulation
+    //Each class encapsulates related properties and methods, 
+    //hiding internal details and exposing only necessary functionality.
+    
     public function __construct(mysqli $db) {
         $this->conn = $db;
     }

@@ -1,5 +1,11 @@
 <?php
 
+// Inheritance
+
+// Classes like RoomManager, UserManager, BookingManager can extend
+// to inherit shared logic
+//(e.g., validation, Filter and sanitize input data , Upload image file , Upload PDF file).
+
 class Utility {
     
     /**

@@ -114,7 +114,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label">Name <span style="color:red">*</span></label>
-                <input name="name" type="text" class="form-control shadow-none" required>
+                <input name="name" type="text" class="form-control shadow-none" required pattern="^[A-Za-z\s]+$" title="Enter letters only">
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Email <span style="color:red">*</span></label>
@@ -130,7 +130,7 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Country <span style="color:red">*</span></label>
-                <input name="country" type="text" class="form-control shadow-none" required>
+                <input name="country" type="text" class="form-control shadow-none" required pattern="^[A-Za-z\s]+$" title="Enter letters only">
               </div>
 
               <div class="col-md-6 mb-3">

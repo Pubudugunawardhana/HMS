@@ -89,7 +89,7 @@
             <h5>Send a message</h5>
             <div class="mt-3">
               <label class="form-label" style="font-weight: 500;">Name</label>
-              <input name="name" required type="text" class="form-control shadow-none">
+              <input name="name" required type="text" class="form-control shadow-none" pattern="^[A-Za-z\s]+$" title="Enter letters only">
             </div>
             <div class="mt-3">
               <label class="form-label" style="font-weight: 500;">Email</label>
