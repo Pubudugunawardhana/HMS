@@ -1,18 +1,20 @@
 <?php 
 
-  require('admin/inc/db_config.php');
-  require('admin/inc/essentials.php');
+  require_once('admin/inc/db_config.php');
+  require_once('admin/inc/essentials.php');
 
-  require('inc/paytm/config_paytm.php');
-  require('inc/paytm/encdec_paytm.php');
-  require('inc/Payhere.php'); 
+  require_once('inc/Payhere.php'); 
 
   date_default_timezone_set("Asia/Colombo");
 
-  session_start();
+  if(session_status() === PHP_SESSION_NONE){ session_start(); }
 
   if(!(isset($_SESSION['login']) && $_SESSION['login']==true)){
     redirect('index.php');
+  }
+
+  if(!isset($_POST['pay_now']) || !isset($_SESSION['room']) || empty($_SESSION['room']['available'])){
+    redirect('rooms.php');
   }
 
   if(isset($_POST['pay_now']))
@@ -43,7 +45,8 @@
     $meal_price = (float) $meal_option['price_modifier'] * $nightCount ;
 
     $payement_type = $frm_data['ptype'];
-    $booking_status = 'booked';
+    // Booking stays 'pending' until PayHere confirms the payment via payhere_notify.php
+    $booking_status = 'pending';
 
     $TXN_AMOUNT = $TXN_AMOUNT + $meal_price;
     $payble = $TXN_AMOUNT;
@@ -59,7 +62,7 @@
     $query1 = "INSERT INTO `booking_order`(`user_id`, `room_id`, `check_in`, `check_out`,`booking_status`,`order_id`,`trans_id`,`trans_amt`,`trans_status`,`trans_resp_msg`) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
     insert($query1,[$CUST_ID,$_SESSION['room']['id'],$frm_data['checkin'],
-      $frm_data['checkout'],$booking_status,$ORDER_ID, $ORDER_ID ,$_SESSION['room']['payment'],'TXN_SUCCESS','Txn Success' ],'isssssssss');
+      $frm_data['checkout'],$booking_status,$ORDER_ID, null ,$_SESSION['room']['payment'],'pending',($payement_type == 'skip' ? 'Pay at hotel' : 'Awaiting payment') ],'isssssssss');
     
     $booking_id = mysqli_insert_id($con);
 
@@ -77,7 +80,12 @@
     $merchant_id = $payhere->getMerchantId();
     $currency = $payhere->getCurrancy();
     $hash = $payhere->generateHash($order_id, $amount);
-    $email = 'abc@gmail.com';
+    $u_res = select("SELECT `email`,`country`,`province` FROM `user_cred` WHERE `id`=? LIMIT 1",[$_SESSION['uId']],'i');
+    $u_row = mysqli_fetch_assoc($u_res) ?: [];
+    $email = $u_row['email'] ?? '';
+    $city = $u_row['province'] ?? '';
+    $country = $u_row['country'] ?? 'Sri Lanka';
+    $checkout_url = $payhere->getCheckoutUrl();
   }
 
 ?>
@@ -461,11 +469,11 @@
                 <div class="alert-text">Please do not refresh this page during payment processing</div>
             </div>
 
-            <form method="post" action="https://sandbox.payhere.lk/pay/checkout">   
+            <form method="post" action="<?php echo htmlspecialchars($checkout_url); ?>">
                 <input type="hidden" name="merchant_id" value="<?php echo $merchant_id ?>">
-                <input type="hidden" name="return_url" value="http://localhost/hms/order-success.php">
-                <input type="hidden" name="cancel_url" value="http://localhost/hms/order-success.php">
-                <input type="hidden" name="notify_url" value="http://localhost/hms/order-success.php">
+                <input type="hidden" name="return_url" value="<?php echo SITE_URL; ?>order-success.php">
+                <input type="hidden" name="cancel_url" value="<?php echo SITE_URL; ?>bookings.php">
+                <input type="hidden" name="notify_url" value="<?php echo SITE_URL; ?>payhere_notify.php">
                 <input type="hidden" name="hash" value="<?php echo $hash; ?>">
 
                 <div class="form-section">
@@ -513,7 +521,7 @@
                         </div>
                         <div class="input-group" style="display:none">
                             <label>Email Address</label>
-                            <input type="text" name="email" value="<?php echo $email; ?>" readonly>
+                            <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
                         </div>
 
                         <div class="input-group">
@@ -529,9 +537,9 @@
                     <div class="form-grid " style="display:none">
                         <div class="input-group">
                             <label>City</label>
-                            <input type="text" name="city" value="<?php echo $frm_data['name']; ?>" readonly>
+                            <input type="text" name="city" value="<?php echo htmlspecialchars($city); ?>" readonly>
                         </div>
-                        <input type="hidden" name="country" value="<?php echo $frm_data['name']; ?>" readonly>
+                        <input type="hidden" name="country" value="<?php echo htmlspecialchars($country); ?>" readonly>
                     </div>
                 </div>
 

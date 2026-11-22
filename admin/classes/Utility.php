@@ -26,18 +26,6 @@ class Utility {
     }
     
     /**
-     * Ensure directory exists, create if it doesn't
-     */
-    private static function ensureDirectoryExists($directory) {
-        if (!is_dir($directory)) {
-            if (!mkdir($directory, 0755, true)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    /**
      * Upload image file
      */
     public static function uploadImage($image, $folder) {
@@ -57,17 +45,13 @@ class Utility {
             return ['status' => 'error', 'message' => 'Image size too large (max 2MB)'];
         }
         
-        // Ensure the upload directory exists
         $upload_dir = UPLOAD_IMAGE_PATH . $folder;
-        if (!self::ensureDirectoryExists($upload_dir)) {
-            return ['status' => 'error', 'message' => 'Failed to create upload directory'];
-        }
-        
+
         $ext = pathinfo($image['name'], PATHINFO_EXTENSION);
         $filename = 'IMG_' . random_int(11111, 99999) . '.' . $ext;
         $upload_path = $upload_dir . $filename;
         
-        if (move_uploaded_file($image['tmp_name'], $upload_path)) {
+        if (storage_put($image['tmp_name'], $upload_path, $img_mime)) {
             return ['status' => 'success', 'filename' => $filename];
         } else {
             return ['status' => 'error', 'message' => 'Upload failed'];
@@ -93,17 +77,13 @@ class Utility {
             return ['status' => 'error', 'message' => 'PDF size too large (max 5MB)'];
         }
         
-        // Ensure the upload directory exists
         $upload_dir = UPLOAD_PDF_PATH . $folder;
-        if (!self::ensureDirectoryExists($upload_dir)) {
-            return ['status' => 'error', 'message' => 'Failed to create upload directory'];
-        }
-        
+
         $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
         $filename = 'PDF_' . random_int(11111, 99999) . '.' . $ext;
         $upload_path = $upload_dir . $filename;
         
-        if (move_uploaded_file($file['tmp_name'], $upload_path)) {
+        if (storage_put($file['tmp_name'], $upload_path, 'application/pdf')) {
             return ['status' => 'success', 'filename' => $filename];
         } else {
             return ['status' => 'error', 'message' => 'Upload failed'];
@@ -114,22 +94,16 @@ class Utility {
      * Delete file
      */
     public static function deleteFile($filename, $folder) {
-        $file_path = UPLOAD_IMAGE_PATH . $folder . $filename;
-        if (file_exists($file_path) && unlink($file_path)) {
-            return true;
-        }
-        return false;
+        if (empty($filename)) return true;
+        return storage_delete(UPLOAD_IMAGE_PATH . $folder . $filename);
     }
     
     /**
      * Delete PDF file
      */
     public static function deletePDF($filename, $folder) {
-        $file_path = UPLOAD_PDF_PATH . $folder . $filename;
-        if (file_exists($file_path) && unlink($file_path)) {
-            return true;
-        }
-        return false;
+        if (empty($filename)) return true;
+        return storage_delete(UPLOAD_PDF_PATH . $folder . $filename);
     }
     
     /**
@@ -181,7 +155,7 @@ class Utility {
      * Check if user is logged in
      */
     public static function isLoggedIn() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
         return isset($_SESSION['login']) && $_SESSION['login'] === true;
     }
     
@@ -189,7 +163,7 @@ class Utility {
      * Check if admin is logged in
      */
     public static function isAdminLoggedIn() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
         return isset($_SESSION['adminLogin']) && $_SESSION['adminLogin'] === true;
     }
     
@@ -206,7 +180,7 @@ class Utility {
      * Get current user ID
      */
     public static function getCurrentUserId() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
         return $_SESSION['uId'] ?? null;
     }
     
@@ -231,7 +205,7 @@ class Utility {
     public static function setAlert($type, $message) {
         // Only start session if not already started and headers not sent
         if (session_status() == PHP_SESSION_NONE && !headers_sent()) {
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) session_start();
         }
         $_SESSION['alert'] = [
             'type' => $type,
@@ -245,7 +219,7 @@ class Utility {
     public static function displayAlerts() {
         // Only start session if not already started and headers not sent
         if (session_status() == PHP_SESSION_NONE && !headers_sent()) {
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) session_start();
         }
         if (isset($_SESSION['alert'])) {
             $alert = $_SESSION['alert'];

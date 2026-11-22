@@ -65,21 +65,21 @@ try {
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body p-0" style="text-align: center;">
                                 <div>
-                                    <img src="./images/dine_in/<?php echo $option['image']; ?>"
+                                    <img src="<?php echo DINE_IN_IMG_PATH . $option['image']; ?>"
                                         class="d-block w-100" style="height: 300px; object-fit: cover;"
                                         alt="Default Wedding Hall Image">
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title fw-bold"><?php echo htmlspecialchars($option['name']); ?></h5>
+                                    <h5 class="card-title fw-bold"><?php echo htmlspecialchars($option['name'] ?? ''); ?></h5>
                                     <p class="card-text text-muted">
-                                        Type of Dine-In: <?php echo htmlspecialchars($option['type_of_dine_in']); ?>
+                                        Type of Dine-In: <?php echo htmlspecialchars($option['type_of_dine_in'] ?? ''); ?>
                                     </p>
                                     <p class="card-text text-muted">
-                                        Location: <?php echo htmlspecialchars($option['location']); ?>
+                                        Location: <?php echo htmlspecialchars($option['location'] ?? ''); ?>
                                     </p>
                                     <p class="card-text text-muted">
-                                        Open Hours <?php echo htmlspecialchars($option['open_hours']); ?>
+                                        Open Hours <?php echo htmlspecialchars($option['open_hours'] ?? ''); ?>
                                     </p>
                                     <div class="d-flex gap-2 mb-3 justify-content-center">
                                         <a href="dine_in_details.php?id=<?php echo $option['id']; ?>"

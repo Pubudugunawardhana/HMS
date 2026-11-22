@@ -140,7 +140,7 @@ function upd_contacts()
   let data_str="";
 
   for(i=0;i<index.length;i++){
-    data_str += index[i] + "=" + document.getElementById(contacts_inp_id[i]).value + '&';
+    data_str += index[i] + "=" + encodeURIComponent(document.getElementById(contacts_inp_id[i]).value) + '&';
   }
   data_str += "upd_contacts";
 

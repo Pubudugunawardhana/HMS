@@ -1,10 +1,10 @@
 <?php 
 
-  require('admin/inc/essentials.php');
-  require('admin/inc/db_config.php');
-  require('admin/inc/mpdf/vendor/autoload.php');
+  require_once('admin/inc/essentials.php');
+  require_once('admin/inc/db_config.php');
+  require_once('admin/inc/mpdf/vendor/autoload.php');
 
-  session_start();
+  if(session_status() === PHP_SESSION_NONE){ session_start(); }
 
   if(!(isset($_SESSION['login']) && $_SESSION['login']==true)){
     redirect('index.php');
@@ -20,9 +20,9 @@
       WHERE ((bo.booking_status='booked' AND bo.arrival=1) 
       OR (bo.booking_status='cancelled' AND bo.refund=1)
       OR (bo.booking_status='payment failed')) 
-      AND bo.booking_id = '$frm_data[id]'";
+      AND bo.booking_id = ? AND bo.user_id = ?";
 
-    $res = mysqli_query($con,$query);
+    $res = select($query,[(int)$frm_data['id'],(int)$_SESSION['uId']],'ii');
     $total_rows = mysqli_num_rows($res);
 
     if($total_rows==0){
@@ -90,7 +90,7 @@
 
     $table_data.="</table>";
 
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new \Mpdf\Mpdf(['tempDir' => sys_get_temp_dir() . '/mpdf']);
     $mpdf->WriteHTML($table_data);
     $mpdf->Output($data['order_id'].'.pdf','D');
 

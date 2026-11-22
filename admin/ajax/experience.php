@@ -1,6 +1,6 @@
 <?php
-require('../inc/essentials.php');
-require('../inc/db_config.php');
+require_once('../inc/essentials.php');
+require_once('../inc/db_config.php');
 
 adminLogin();
 
@@ -15,12 +15,8 @@ try {
 }
 
 function uploadImageNew($file) {
-    $uploadDir = '../../images/experience/';
-    
-    if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-    
+    $uploadDir = UPLOAD_IMAGE_PATH . EXPERIENCE_FOLDER;
+
     $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
     $maxSize = 5 * 1024 * 1024; // 5MB
     
@@ -36,7 +32,7 @@ function uploadImageNew($file) {
     $filename = 'experience_' . uniqid() . '.' . $extension;
     $filepath = $uploadDir . $filename;
     
-    if (move_uploaded_file($file['tmp_name'], $filepath)) {
+    if (storage_put($file['tmp_name'], $filepath, $file['type'])) {
         return ['success' => true, 'filename' => $filename];
     } else {
         return ['success' => false, 'message' => 'Failed to upload file.'];
@@ -44,12 +40,8 @@ function uploadImageNew($file) {
 }
 
 function uploadImagePDF($file) {
-    $uploadDir = '../../images/experience/';
-    
-    if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-    
+    $uploadDir = UPLOAD_IMAGE_PATH . EXPERIENCE_FOLDER;
+
     $allowedTypes = ['application/pdf'];
     $maxSize = 5 * 1024 * 1024; // 5MB
     
@@ -65,7 +57,7 @@ function uploadImagePDF($file) {
     $filename = 'experience_' . uniqid() . '.' . $extension;
     $filepath = $uploadDir . $filename;
     
-    if (move_uploaded_file($file['tmp_name'], $filepath)) {
+    if (storage_put($file['tmp_name'], $filepath, $file['type'])) {
         return ['success' => true, 'filename' => $filename];
     } else {
         return ['success' => false, 'message' => 'Failed to upload file.'];
@@ -73,12 +65,12 @@ function uploadImagePDF($file) {
 }
 
 if (isset($_POST['add_experience_option'])) {
-    $name = mysqli_real_escape_string($con, $_POST['name']);
-    $description = mysqli_real_escape_string($con, $_POST['description']);
-    $highlight = mysqli_real_escape_string($con, $_POST['highlight']);
-    $guide_name = mysqli_real_escape_string($con, $_POST['guide_name']);
-    $guide_email = mysqli_real_escape_string($con, $_POST['guide_email']);  
-    $guide_phone = mysqli_real_escape_string($con, $_POST['guide_phone']);
+    $name = trim($_POST['name'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $highlight = trim($_POST['highlight'] ?? '');
+    $guide_name = trim($_POST['guide_name'] ?? '');
+    $guide_email = trim($_POST['guide_email'] ?? '');  
+    $guide_phone = trim($_POST['guide_phone'] ?? '');
     
     if (empty($name) || empty($description) || empty($highlight)) {
         echo 0; 
@@ -135,12 +127,11 @@ if (isset($_POST['get_all_experience_options'])) {
     }
     
     foreach ($options as $index => $option) {
-        $imagePath = '../../images/experience/' . $option['image'];
-        $imageDisplay = file_exists($imagePath) ? 
-            '<img src="images/experience/' . $option['image'] . '" class="rounded me-2" width="50" height="50" style="object-fit: cover;">' :
+        $imageDisplay = !empty($option['image']) ?
+            '<img src="' . EXPERIENCE_IMG_PATH . $option['image'] . '" class="rounded me-2" width="50" height="50" style="object-fit: cover;">' :
             '<div class="bg-secondary rounded me-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; color: white; font-size: 12px;">No Image</div>';
-        $viewPriceList = file_exists('../../images/experience/' . $option['priceList']) ? 
-            '<a href="/hms/images/experience/' . $option['priceList'] . '" target="_blank" class="btn btn-sm btn-info">View Price List</a>' :
+        $viewPriceList = !empty($option['priceList']) ?
+            '<a href="' . EXPERIENCE_IMG_PATH . $option['priceList'] . '" target="_blank" class="btn btn-sm btn-info">View Price List</a>' :
             '<span class="text-secondary">No Price List</span>';
         $statusButton = $option['status'] ? 
             '<button type="button" onclick="toggleStatus(' . $option['id'] . ', 0)" class="btn btn-sm btn-success">Active</button>' :
@@ -151,13 +142,13 @@ if (isset($_POST['get_all_experience_options'])) {
             <td>' . ($index + 1) . '</td>
             <td>
                 <div class="d-flex align-items-center">
-                    <span style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" >' . htmlspecialchars($option['name']) . '</span>
+                    <span style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" >' . htmlspecialchars($option['name'] ?? '') . '</span>
                 </div>
             </td>
-            <td>' . htmlspecialchars($option['highlight']) . '</td>
+            <td>' . htmlspecialchars($option['highlight'] ?? '') . '</td>
             <td>
-                <div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="' . htmlspecialchars($option['description']) . '">
-                    ' . htmlspecialchars($option['description']) . '
+                <div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="' . htmlspecialchars($option['description'] ?? '') . '">
+                    ' . htmlspecialchars($option['description'] ?? '') . '
                 </div>
             </td>
             <td>' . $viewPriceList . '</td>
@@ -190,12 +181,12 @@ if (isset($_POST['get_experience_option'])) {
 
 if (isset($_POST['update_experience_option'])) {
     $id = (int)$_POST['id'];
-    $name = mysqli_real_escape_string($con, $_POST['name']);
-    $description = mysqli_real_escape_string($con, $_POST['description']);
-    $highlight = mysqli_real_escape_string($con, $_POST['highlight']);
-    $guide_name = mysqli_real_escape_string($con, $_POST['guide_name']);
-    $guide_email = mysqli_real_escape_string($con, $_POST['guide_email']);
-    $guide_phone = mysqli_real_escape_string($con, $_POST['guide_phone']);
+    $name = trim($_POST['name'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $highlight = trim($_POST['highlight'] ?? '');
+    $guide_name = trim($_POST['guide_name'] ?? '');
+    $guide_email = trim($_POST['guide_email'] ?? '');
+    $guide_phone = trim($_POST['guide_phone'] ?? '');
     
     if (!$id || empty($name) || empty($description) || empty($highlight)) {
         echo 0; 
@@ -220,8 +211,8 @@ if (isset($_POST['update_experience_option'])) {
         $imageName = $uploadResult['filename'];
         
         $oldOption = $experience->getById($id);
-        if ($oldOption && file_exists('../../images/experience/' . $oldOption['image'])) {
-            unlink('../../images/experience/' . $oldOption['image']);
+        if ($oldOption && !empty($oldOption['image'])) {
+            storage_delete(UPLOAD_IMAGE_PATH . EXPERIENCE_FOLDER . $oldOption['image']);
         }
     }
 
@@ -238,8 +229,8 @@ if (isset($_POST['update_experience_option'])) {
         $priceListName = $uploadResult['filename'];
         
         $oldOption = $experience->getById($id);
-        if ($oldOption && file_exists('../../images/experience/' . $oldOption['priceList'])) {
-            unlink('../../images/experience/' . $oldOption['priceList']);
+        if ($oldOption && !empty($oldOption['priceList'])) {
+            storage_delete(UPLOAD_IMAGE_PATH . EXPERIENCE_FOLDER . $oldOption['priceList']);
         }
     }
     

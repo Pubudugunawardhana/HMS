@@ -1,10 +1,10 @@
 <?php 
 
-  require('../admin/inc/db_config.php');
-  require('../admin/inc/essentials.php');
+  require_once('../admin/inc/db_config.php');
+  require_once('../admin/inc/essentials.php');
   date_default_timezone_set("Asia/Kolkata");
 
-  session_start();
+  if(session_status() === PHP_SESSION_NONE){ session_start(); }
 
   if(isset($_GET['fetch_rooms']))
   {
@@ -65,7 +65,7 @@
         $values = ['booked',$room_data['id'],$chk_avail['checkin'],$chk_avail['checkout']];
         $tb_fetch = mysqli_fetch_assoc(select($tb_query,$values,'siss'));
 
-        if(($room_data['quantity']-$tb_fetch['total_bookings'])==0){
+        if(($room_data['quantity']-$tb_fetch['total_bookings'])<=0){
           continue;
         }
       }

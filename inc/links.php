@@ -5,7 +5,7 @@
 
 <?php
 
-  session_start();
+  if(session_status() === PHP_SESSION_NONE){ session_start(); }
   date_default_timezone_set("Asia/Colombo");
 
   require_once('admin/inc/db_config.php');

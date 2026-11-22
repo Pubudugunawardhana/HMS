@@ -1,7 +1,7 @@
 <?php 
 
-  require('../admin/inc/db_config.php');
-  require('../admin/inc/essentials.php');
+  require_once('../admin/inc/db_config.php');
+  require_once('../admin/inc/essentials.php');
 
   date_default_timezone_set("Asia/Colombo");
 
@@ -37,7 +37,7 @@
       echo $result;
     }
     else{
-      session_start();
+      if(session_status() === PHP_SESSION_NONE){ session_start(); }
 
       // run query to check room is available or not 
 
@@ -51,7 +51,7 @@
       $rq_result = select("SELECT `quantity` FROM `rooms` WHERE `id`=?",[$_SESSION['room']['id']],'i');
       $rq_fetch = mysqli_fetch_assoc($rq_result);
 
-      if(($rq_fetch['quantity']-$tb_fetch['total_bookings'])==0){
+      if(($rq_fetch['quantity']-$tb_fetch['total_bookings'])<=0){
         $status = 'unavailable';
         $result = json_encode(['status'=>$status]);
         echo $result;

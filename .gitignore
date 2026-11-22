@@ -1,0 +1,6 @@
+.env
+.vercel/
+node_modules/
+admin/inc/mpdf/vendor/mpdf/mpdf/tmp/
+.DS_Store
+Thumbs.db

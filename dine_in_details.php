@@ -45,23 +45,23 @@ $settings_r = mysqli_fetch_assoc(select($settings_q, [1], 'i'));
         <?php else: ?>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <img src="./images/dine_in/<?php echo $option['image']; ?>" 
+                    <img src="<?php echo DINE_IN_IMG_PATH . $option['image']; ?>" 
                         alt="Dine In Image" class="img-fluid rounded shadow" style="width: 100%; height: auto;">
                 </div>
                 <div class="col-md-6">
-                    <h2 class="fw-bold"><?php echo htmlspecialchars($option['name']); ?></h2>
+                    <h2 class="fw-bold"><?php echo htmlspecialchars($option['name'] ?? ''); ?></h2>
                     <p class="text-muted" style="white-space: pre-line;">
                         <?php echo  str_replace(["\\r\\n", "\\n", "\\r"], ' ', $option['description']); ?>
                     </p>
 
                     <p>
-                        <strong>Type of Dine-In: </strong> <?php echo htmlspecialchars($option['type_of_dine_in']); ?>
+                        <strong>Type of Dine-In: </strong> <?php echo htmlspecialchars($option['type_of_dine_in'] ?? ''); ?>
                     </p>
                     <p>
-                        <strong>Location: </strong> <?php echo htmlspecialchars($option['location']); ?>
+                        <strong>Location: </strong> <?php echo htmlspecialchars($option['location'] ?? ''); ?>
                     </p>
                     <p>
-                        <strong><?php echo htmlspecialchars($option['open_hours']); ?> </strong> 
+                        <strong><?php echo htmlspecialchars($option['open_hours'] ?? ''); ?> </strong> 
                     </p>
                     
 

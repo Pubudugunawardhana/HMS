@@ -110,7 +110,7 @@ try {
                                         else:
                                             ?>
                                             <div class="carousel-item active">
-                                                <img src="<?php echo SITE_URL; ?>images/default-wedding.jpg"
+                                                <img src="<?php echo WEDDING_IMG_PATH; ?>default-wedding.jpg"
                                                     class="d-block w-100" style="height: 300px; object-fit: cover;"
                                                     alt="Default Wedding Hall Image">
                                             </div>

@@ -7,10 +7,33 @@
   $pass  = getenv('DB_PASS');
   $db    = getenv('DB_NAME');
 
-  $con = mysqli_connect($hname,$uname,$pass,$db);
+  $port  = (int)(getenv('DB_PORT') ?: 3306);
+  $use_ssl = in_array(strtolower((string)getenv('DB_SSL')), ['1','true','yes','on'], true);
+
+  mysqli_report(MYSQLI_REPORT_OFF);
+  $con = mysqli_init();
+  $flags = 0;
+  if($use_ssl){
+    $ca = getenv('DB_SSL_CA') ?: null; // optional path to CA file
+    if(!$ca){
+      foreach(['/etc/pki/tls/certs/ca-bundle.crt','/etc/ssl/certs/ca-certificates.crt','/etc/ssl/cert.pem'] as $bundle){
+        if(is_file($bundle)){ $ca = $bundle; break; }
+      }
+    }
+    mysqli_ssl_set($con, null, null, $ca, null, null);
+    $flags = MYSQLI_CLIENT_SSL;
+  }
+  if(!@mysqli_real_connect($con,$hname,$uname,$pass,$db,$port,null,$flags)){
+    error_log('DB connect failed: '.mysqli_connect_error());
+    $con = false;
+  }
+  else{
+    mysqli_set_charset($con,'utf8mb4');
+  }
 
   if(!$con){
-    die("Cannot Connect to Database".mysqli_connect_error());
+    http_response_code(500);
+    die("Cannot connect to the database. Please try again later.");
   }
 
   function filteration($data){

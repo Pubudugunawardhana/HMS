@@ -1,55 +1,13 @@
 <?php 
 
-  require('../admin/inc/db_config.php');
-  require('../admin/inc/essentials.php');
-  require("../inc/sendgrid/sendgrid-php.php");
+  require_once('../admin/inc/db_config.php');
+  require_once('../admin/inc/essentials.php');
 
   require_once('../inc/Mailer.php');
 
   date_default_timezone_set("Asia/Colombo");
 
   $mailer = new Mailer();
-
-  function send_mail($uemail,$token,$type)
-  {
-
-    if($type == "email_confirmation"){
-      $page = 'email_confirm.php';
-      $subject = "Account Verification Link";
-      $content = "confirm your email";
-    }
-    else{
-      $page = 'index.php';
-      $subject = "Account Reset Link";
-      $content = "reset your account";
-    }
-
-    $email = new \SendGrid\Mail\Mail(); 
-    $email->setFrom(SENDGRID_EMAIL,SENDGRID_NAME);
-    $email->setSubject($subject);
-
-    $email->addTo($uemail);
-
-    $email->addContent(
-        "text/html", 
-        "
-          Click the link to $content: <br>
-          <a href='".SITE_URL."$page?$type&email=$uemail&token=$token"."'>
-            CLICK ME
-          </a>
-        "
-    );
-
-    $sendgrid = new \SendGrid(SENDGRID_API_KEY);
-
-    try{
-      $sendgrid->send($email);
-      return 1;
-    }
-    catch (Exception $e){
-      return 0;
-    }
-  }
 
   function login($data,$type){
 
@@ -72,7 +30,7 @@
           echo 'invalid_pass';
         }
         else{
-          session_start();
+          if(session_status() === PHP_SESSION_NONE){ session_start(); }
           $_SESSION['login'] = true;
           $_SESSION['uId'] = $u_fetch['id'];
           $_SESSION['uName'] = $u_fetch['name'];
@@ -134,9 +92,9 @@
 
     if(insert($query,$values,'ssssssssss')){
       
+      // A failed welcome email should not block registration/login
       if(!$mailer->sendRegistrationMail($data['email'], $data['name'] )) {
-        echo 'mail_failed';
-        exit;
+        error_log('Registration mail failed for '.$data['email']);
       }
       $data['email_mob'] = $data['email'] ? $data['email'] : $data['phonenum'];
       login($data,'register');

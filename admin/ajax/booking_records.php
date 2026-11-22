@@ -1,6 +1,6 @@
 <?php
-require('../inc/db_config.php');
-require('../inc/essentials.php');
+require_once('../inc/db_config.php');
+require_once('../inc/essentials.php');
 require('../classes/BookingManager.php');
 
 date_default_timezone_set("Asia/Colombo");

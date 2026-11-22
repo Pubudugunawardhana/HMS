@@ -95,7 +95,7 @@
               price;
 
               $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`
-                WHERE `room_id`='$room_data[id]' ORDER BY `sr_no` DESC LIMIT 20";
+                WHERE `room_id`='$room_data[id]'";
   
               $rating_res = mysqli_query($con,$rating_q);
               $rating_fetch = mysqli_fetch_assoc($rating_res);

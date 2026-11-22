@@ -1,7 +1,8 @@
 <?php
-require_once 'phpmailer/src/PHPMailer.php';
-require_once 'phpmailer/src/SMTP.php';
-require_once 'phpmailer/src/Exception.php';
+require_once __DIR__ . '/phpmailer/src/PHPMailer.php';
+require_once __DIR__ . '/phpmailer/src/SMTP.php';
+require_once __DIR__ . '/phpmailer/src/Exception.php';
+require_once __DIR__ . '/../admin/inc/essentials.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -13,14 +14,15 @@ class Mailer {
         $this->mail = new PHPMailer(true);
 
         $this->mail->isSMTP();
-        $this->mail->Host       = 'sandbox.smtp.mailtrap.io';
-        $this->mail->SMTPAuth   = true;
-        $this->mail->Username   = '3e42ac3156c84b';
-        $this->mail->Password   = '21178f4cd1d656';
-        $this->mail->SMTPSecure = 'tls';
-        $this->mail->Port       = 2525;
+        $this->mail->Host       = getenv('SMTP_HOST') ?: 'localhost';
+        $this->mail->SMTPAuth   = (string)getenv('SMTP_USER') !== '';
+        $this->mail->Username   = getenv('SMTP_USER') ?: '';
+        $this->mail->Password   = getenv('SMTP_PASS') ?: '';
+        $this->mail->SMTPSecure = getenv('SMTP_SECURE') ?: 'tls';
+        $this->mail->Port       = (int)(getenv('SMTP_PORT') ?: 587);
+        $this->mail->Timeout    = 15;
 
-        $this->mail->setFrom('no-reply@example.com', 'HMS Team');
+        $this->mail->setFrom(getenv('MAIL_FROM') ?: 'no-reply@example.com', getenv('MAIL_FROM_NAME') ?: 'HMS Team');
         $this->mail->isHTML(true);
     }
 
@@ -44,7 +46,7 @@ class Mailer {
             $this->mail->addAddress($to);
             $this->mail->Subject = 'Password Reset Request - HMS';
 
-            $resetLink = "http://localhost/hms/index.php?account_recovery&email=$to&token=$token"; // Change domain accordingly
+            $resetLink = SITE_URL . "index.php?account_recovery&email=" . urlencode($to) . "&token=" . urlencode($token);
             $body = "
                 Hello,<br><br>
                 We received a request to reset your password. Please click the link below to reset it:<br>

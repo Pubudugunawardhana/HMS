@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+hms.sql
+README/
+scripts/
+.git/
+.vscode/
+admin/inc/mpdf/vendor/mpdf/mpdf/tmp/

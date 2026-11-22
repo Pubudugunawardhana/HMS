@@ -129,9 +129,10 @@
     $res = insert($q, $values, 'ssss');
     if ($res == 1) {
       if (!$mailer->sendContactMail($frm_data['email'], $frm_data['name'])) {
-        alert('error', 'Mail not sent! Try again later.');
+        alert('success', 'Your message was received! (Confirmation email could not be sent.)');
+      } else {
+        alert('success', 'Mail sent!');
       }
-      alert('success', 'Mail sent!');
     } else {
       alert('error', 'Server Down! Try again later.');
     }

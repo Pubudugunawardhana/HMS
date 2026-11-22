@@ -167,7 +167,7 @@
           }
 
           $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`
-            WHERE `room_id`='$room_data[id]' ORDER BY `sr_no` DESC LIMIT 20";
+            WHERE `room_id`='$room_data[id]'";
 
           $rating_res = mysqli_query($con,$rating_q);
           $rating_fetch = mysqli_fetch_assoc($rating_res);
@@ -329,6 +329,8 @@
     <div class="container">
         <div class="row">
             <?php
+              $dine_in_img_path = DINE_IN_IMG_PATH;
+              $experience_img_path = EXPERIENCE_IMG_PATH;
               $dine_in_options = json_decode($indexOptions->getLatestDineIn(), true);
               if (empty($dine_in_options)) {
                 echo '<div class="col-12 text-center">No dine-in options available at the moment.</div>';
@@ -337,7 +339,7 @@
                   echo <<<data
                     <div class="col-lg-4 col-md-6 mb-4">
                       <div class="card border-0 shadow-sm h-100">
-                        <img src="./images/dine_in/{$option['image']}" class="card-img-top" alt="Dine In Image" style="height: 300px; object-fit: cover;">
+                        <img src="{$dine_in_img_path}{$option['image']}" class="card-img-top" alt="Dine In Image" style="height: 300px; object-fit: cover;">
                         <div class="card-body text-center">
                           <h5 class="card-title fw-bold">{$option['name']}</h5>
                           <p class="card-text text-muted">
@@ -380,7 +382,7 @@
                   echo <<<data
                     <div class="col-lg-4 col-md-6 mb-4">
                       <div class="card border-0 shadow-sm h-100">
-                        <img src="./images/experience/{$option['image']}" class="card-img-top" alt="Experience Image" style="height: 300px; object-fit: cover;">
+                        <img src="{$experience_img_path}{$option['image']}" class="card-img-top" alt="Experience Image" style="height: 300px; object-fit: cover;">
                         <div class="card-body text-center">
                           <h5 class="card-title fw-bold">{$option['name']}</h5>
                           <p class="card-text text-muted">

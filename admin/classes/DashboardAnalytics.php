@@ -7,7 +7,7 @@ class DashboardAnalytics {
     }
 
     private function buildPeriodCondition($period) {
-        return match ($period) {
+        return match ((int)$period) {
             1 => "WHERE datentime BETWEEN NOW() - INTERVAL 30 DAY AND NOW()",
             2 => "WHERE datentime BETWEEN NOW() - INTERVAL 90 DAY AND NOW()",
             3 => "WHERE datentime BETWEEN NOW() - INTERVAL 1 YEAR AND NOW()",

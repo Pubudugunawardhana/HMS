@@ -1,7 +1,7 @@
 <?php 
 
-  require('inc/essentials.php');
-  require('inc/db_config.php');
+  require_once('inc/essentials.php');
+  require_once('inc/db_config.php');
   require('inc/mpdf/vendor/autoload.php');
 
   adminLogin();
@@ -86,7 +86,7 @@
 
     $table_data.="</table>";
 
-    $mpdf = new \Mpdf\Mpdf();
+    $mpdf = new \Mpdf\Mpdf(['tempDir' => sys_get_temp_dir() . '/mpdf']);
     $mpdf->WriteHTML($table_data);
     $mpdf->Output($data['order_id'].'.pdf','D');
 

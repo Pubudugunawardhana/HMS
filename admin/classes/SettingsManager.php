@@ -31,10 +31,10 @@ class SettingsManager {
 
     public function updateContactDetails(array $data): int {
         $params = [
-            $data['address'], $data['gmap'], $data['pn1'], $data['pn2'],
+            $data['address'], $data['gmap'], (int)preg_replace('/\D/', '', (string)$data['pn1']), (int)preg_replace('/\D/', '', (string)$data['pn2']),
             $data['email'], $data['fb'], $data['insta'], $data['tw'], $data['iframe'], 1
         ];
-        return update("UPDATE contact_details SET address=?, gmap=?, pn1=?, pn2=?, email=?, fb=?, insta=?, tw=?, iframe=? WHERE sr_no=?", $params, 'sssssssssi');
+        return update("UPDATE contact_details SET address=?, gmap=?, pn1=?, pn2=?, email=?, fb=?, insta=?, tw=?, iframe=? WHERE sr_no=?", $params, 'ssiisssssi');
     }
 
     

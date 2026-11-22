@@ -130,15 +130,15 @@ INSERT INTO `carousel` (`sr_no`, `image`) VALUES
 
 CREATE TABLE `contact_details` (
   `sr_no` int NOT NULL,
-  `address` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gmap` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gmap` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pn1` bigint NOT NULL,
   `pn2` bigint NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fb` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `insta` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tw` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `iframe` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL
+  `iframe` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -546,6 +546,33 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`sr_no`, `site_title`, `site_about`, `shutdown`) VALUES
 (1, 'Heritance 360', 'Located in the heart of Dabulla in Sri Lanka, Heritance 360 offers a comfortable and convenient stay for both business and leisure travelers.', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `team_details`
+--
+
+CREATE TABLE IF NOT EXISTS `team_details` (
+  `sr_no` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `picture` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions` (PHP sessions on serverless hosting)
+--
+
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `id` varchar(128) NOT NULL,
+  `data` mediumblob NOT NULL,
+  `updated_at` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `updated_at` (`updated_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 

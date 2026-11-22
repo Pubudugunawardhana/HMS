@@ -116,7 +116,7 @@ function edit_details(id)
     console.log(data);
     // Set meal plans prices
     for (let id in data.meal_plans) {
-      let inputId = parseInt(id) + 1;
+      let inputId = id; // keyed by meal_plan_id
       let mealInput = edit_room_form.querySelector(`input[name='meal_plans[${inputId}]']`);
       if (mealInput) {
         mealInput.value = data.meal_plans[id];

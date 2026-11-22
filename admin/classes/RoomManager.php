@@ -98,7 +98,11 @@ class RoomManager {
 
         $features = array_map(fn($r) => $r['features_id'], mysqli_fetch_all(select("SELECT * FROM room_features WHERE room_id=?", [$roomId], 'i'), MYSQLI_ASSOC));
         $facilities = array_map(fn($r) => $r['facilities_id'], mysqli_fetch_all(select("SELECT * FROM room_facilities WHERE room_id=?", [$roomId], 'i'), MYSQLI_ASSOC));
-        $meal_plans = array_map(fn($r) => $r['price_modifier'], mysqli_fetch_all(select("SELECT * FROM room_meal_plans WHERE room_id=?", [$roomId], 'i'), MYSQLI_ASSOC));
+        // keyed by meal_plan_id so the edit form can fill meal_plans[<id>] inputs
+        $meal_plans = [];
+        foreach (mysqli_fetch_all(select("SELECT * FROM room_meal_plans WHERE room_id=?", [$roomId], 'i'), MYSQLI_ASSOC) as $r) {
+            $meal_plans[$r['meal_plan_id']] = $r['price_modifier'];
+        }
         return json_encode(['roomdata' => $room, 'features' => $features, 'facilities' => $facilities,'meal_plans' => $meal_plans]);
     }
 
@@ -111,7 +115,7 @@ class RoomManager {
         // Delete existing relationships
         delete("DELETE FROM room_features WHERE room_id=?", [$data['room_id']], 'i');
         delete("DELETE FROM room_facilities WHERE room_id=?", [$data['room_id']], 'i');
-        delete("DELETE FROM room_meal_plans WHERE room_id=?", [$data['room_id']], 'i');
+        // room_meal_plans rows are referenced by booking_details.meal_plan_id, so update them in place
     
         // Insert facilities
         $stmt = $this->conn->prepare("INSERT INTO room_facilities (room_id, facilities_id) VALUES (?, ?)");
@@ -128,14 +132,16 @@ class RoomManager {
             $stmt->execute();
         }
         $stmt->close();
-        $stmt = $this->conn->prepare("INSERT INTO room_meal_plans (room_id, meal_plan_id, price_modifier) VALUES (?, ?, ?)");
         foreach ($meal_plans as $meal_plan_id => $price) {
             $mp_id = (int)$meal_plan_id;
             $mp_price = floatval($price);
-            $stmt->bind_param('iid', $data['room_id'], $mp_id, $mp_price);
-            $stmt->execute();
+            $existing = select("SELECT id FROM room_meal_plans WHERE room_id=? AND meal_plan_id=? LIMIT 1", [$data['room_id'], $mp_id], 'ii');
+            if ($row = mysqli_fetch_assoc($existing)) {
+                update("UPDATE room_meal_plans SET price_modifier=? WHERE id=?", [$mp_price, $row['id']], 'di');
+            } else {
+                insert("INSERT INTO room_meal_plans (room_id, meal_plan_id, price_modifier) VALUES (?, ?, ?)", [$data['room_id'], $mp_id, $mp_price], 'iid');
+            }
         }
-        $stmt->close();
 
         return 1;
     }

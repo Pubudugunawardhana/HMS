@@ -1,10 +1,10 @@
 <?php 
 
-  require('../admin/inc/db_config.php');
-  require('../admin/inc/essentials.php');
+  require_once('../admin/inc/db_config.php');
+  require_once('../admin/inc/essentials.php');
 
   date_default_timezone_set("Asia/Colombo");
-  session_start();
+  if(session_status() === PHP_SESSION_NONE){ session_start(); }
 
 
   if(!(isset($_SESSION['login']) && $_SESSION['login']==true)){

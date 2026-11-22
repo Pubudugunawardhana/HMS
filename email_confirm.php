@@ -1,7 +1,7 @@
 <?php
 
-  require('admin/inc/db_config.php');
-  require('admin/inc/essentials.php');
+  require_once('admin/inc/db_config.php');
+  require_once('admin/inc/essentials.php');
 
   if(isset($_GET['email_confirmation']))
   {

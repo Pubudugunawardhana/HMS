@@ -1,6 +1,6 @@
 <?php
-require('inc/essentials.php');
-require('inc/db_config.php');
+require_once('inc/essentials.php');
+require_once('inc/db_config.php');
 adminLogin();
 ?>
 <!DOCTYPE html>

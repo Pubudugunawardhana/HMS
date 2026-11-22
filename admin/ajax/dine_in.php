@@ -1,6 +1,6 @@
 <?php
-require('../inc/essentials.php');
-require('../inc/db_config.php');
+require_once('../inc/essentials.php');
+require_once('../inc/db_config.php');
 
 adminLogin();
 
@@ -15,12 +15,8 @@ try {
 }
 
 function uploadImageNew($file) {
-    $uploadDir = '../../images/dine_in/';
-    
-    if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-    
+    $uploadDir = UPLOAD_IMAGE_PATH . DINE_IN_FOLDER;
+
     $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
     $maxSize = 5 * 1024 * 1024; // 5MB
     
@@ -36,7 +32,7 @@ function uploadImageNew($file) {
     $filename = 'dine_in_' . uniqid() . '.' . $extension;
     $filepath = $uploadDir . $filename;
     
-    if (move_uploaded_file($file['tmp_name'], $filepath)) {
+    if (storage_put($file['tmp_name'], $filepath, $file['type'])) {
         return ['success' => true, 'filename' => $filename];
     } else {
         return ['success' => false, 'message' => 'Failed to upload file.'];
@@ -44,11 +40,11 @@ function uploadImageNew($file) {
 }
 
 if (isset($_POST['add_dine_in_option'])) {
-    $name = mysqli_real_escape_string($con, $_POST['name']);
-    $description = mysqli_real_escape_string($con, $_POST['description']);
-    $open_hours = mysqli_real_escape_string($con, $_POST['open_hours']);
-    $type_of_dine_in = mysqli_real_escape_string($con, $_POST['type_of_dine_in']);
-    $location = mysqli_real_escape_string($con, $_POST['location']);
+    $name = trim($_POST['name'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $open_hours = trim($_POST['open_hours'] ?? '');
+    $type_of_dine_in = trim($_POST['type_of_dine_in'] ?? '');
+    $location = trim($_POST['location'] ?? '');
     
     if (empty($name) || empty($description) || empty($open_hours)) {
         echo 0; 
@@ -91,9 +87,8 @@ if (isset($_POST['get_all_dine_in_options'])) {
     }
     
     foreach ($options as $index => $option) {
-        $imagePath = '../../images/dine_in/' . $option['image'];
-        $imageDisplay = file_exists($imagePath) ? 
-            '<img src="images/dine_in/' . $option['image'] . '" class="rounded me-2" width="50" height="50" style="object-fit: cover;">' :
+        $imageDisplay = !empty($option['image']) ?
+            '<img src="' . DINE_IN_IMG_PATH . $option['image'] . '" class="rounded me-2" width="50" height="50" style="object-fit: cover;">' :
             '<div class="bg-secondary rounded me-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; color: white; font-size: 12px;">No Image</div>';
         
         $statusButton = $option['status'] ? 
@@ -106,15 +101,15 @@ if (isset($_POST['get_all_dine_in_options'])) {
             <td>
                 <div class="d-flex align-items-center">
                    
-                    <span>' . htmlspecialchars($option['name']) . '</span>
+                    <span>' . htmlspecialchars($option['name'] ?? '') . '</span>
                 </div>
             </td>
-            <td>' . htmlspecialchars($option['type_of_dine_in']) . '</td>
-            <td>' . htmlspecialchars($option['location']) . '</td>
-            <td>' . htmlspecialchars($option['open_hours']) . '</td>
+            <td>' . htmlspecialchars($option['type_of_dine_in'] ?? '') . '</td>
+            <td>' . htmlspecialchars($option['location'] ?? '') . '</td>
+            <td>' . htmlspecialchars($option['open_hours'] ?? '') . '</td>
             <td>
-                <div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="' . htmlspecialchars($option['description']) . '">
-                    ' . htmlspecialchars($option['description']) . '
+                <div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="' . htmlspecialchars($option['description'] ?? '') . '">
+                    ' . htmlspecialchars($option['description'] ?? '') . '
                 </div>
             </td>
             <td>' . $statusButton . '</td>
@@ -146,11 +141,11 @@ if (isset($_POST['get_dine_in_option'])) {
 
 if (isset($_POST['update_dine_in_option'])) {
     $id = (int)$_POST['id'];
-    $name = mysqli_real_escape_string($con, $_POST['name']);
-    $description = mysqli_real_escape_string($con, $_POST['description']);
-    $open_hours = mysqli_real_escape_string($con, $_POST['open_hours']);
-    $type_of_dine_in = mysqli_real_escape_string($con, $_POST['type_of_dine_in']);
-    $location = mysqli_real_escape_string($con, $_POST['location']);
+    $name = trim($_POST['name'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $open_hours = trim($_POST['open_hours'] ?? '');
+    $type_of_dine_in = trim($_POST['type_of_dine_in'] ?? '');
+    $location = trim($_POST['location'] ?? '');
     
     if (!$id || empty($name) || empty($description) || empty($open_hours)) {
         echo 0; 
@@ -175,8 +170,8 @@ if (isset($_POST['update_dine_in_option'])) {
         $imageName = $uploadResult['filename'];
         
         $oldOption = $dineIn->getById($id);
-        if ($oldOption && file_exists('../../images/dine_in/' . $oldOption['image'])) {
-            unlink('../../images/dine_in/' . $oldOption['image']);
+        if ($oldOption && !empty($oldOption['image'])) {
+            storage_delete(UPLOAD_IMAGE_PATH . DINE_IN_FOLDER . $oldOption['image']);
         }
     }
     

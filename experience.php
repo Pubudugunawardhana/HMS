@@ -61,16 +61,16 @@ try {
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body p-0">
                                 <div>
-                                    <img src="./images/experience/<?php echo $option['image']; ?>" 
+                                    <img src="<?php echo EXPERIENCE_IMG_PATH . $option['image']; ?>" 
                                         class="d-block w-100" style="height: 300px; object-fit: cover;" 
                                         alt="Default Wedding Hall Image">
                                 </div>
                                 
                                 <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold"><?php echo htmlspecialchars($option['name']); ?></h5>
+                                    <h5 class="card-title fw-bold"><?php echo htmlspecialchars($option['name'] ?? ''); ?></h5>
                                     <p class="card-text text-muted">
-                                        <?php echo nl2br(htmlspecialchars(substr($option['description'], 0, 150))); ?>
-                                        <?php if (strlen($option['description']) > 150): ?>...<?php endif; ?>
+                                        <?php echo nl2br(htmlspecialchars(substr($option['description'] ?? '', 0, 150))); ?>
+                                        <?php if (strlen($option['description'] ?? '') > 150): ?>...<?php endif; ?>
                                     </p>
                                     
                                     <div class="d-flex gap-2 mb-3 justify-content-center">
