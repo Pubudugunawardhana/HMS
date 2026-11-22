@@ -28,10 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin_cred` (
-  `sr_no` int NOT NULL,
+  `sr_no` int NOT NULL AUTO_INCREMENT,
   `admin_name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin_pass` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `admin_pass` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admin_cred`
@@ -47,7 +48,7 @@ INSERT INTO `admin_cred` (`sr_no`, `admin_name`, `admin_pass`) VALUES
 --
 
 CREATE TABLE `booking_details` (
-  `sr_no` int NOT NULL,
+  `sr_no` int NOT NULL AUTO_INCREMENT,
   `booking_id` int NOT NULL,
   `room_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int NOT NULL,
@@ -57,8 +58,9 @@ CREATE TABLE `booking_details` (
   `phonenum` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `meal_plan_id` int DEFAULT '0',
-  `meal_plan_price` decimal(10,2) DEFAULT '0.00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meal_plan_price` decimal(10,2) DEFAULT '0.00',
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `booking_details`
@@ -75,7 +77,7 @@ INSERT INTO `booking_details` (`sr_no`, `booking_id`, `room_name`, `price`, `tot
 --
 
 CREATE TABLE `booking_order` (
-  `booking_id` int NOT NULL,
+  `booking_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `room_id` int NOT NULL,
   `check_in` date NOT NULL,
@@ -89,15 +91,15 @@ CREATE TABLE `booking_order` (
   `trans_status` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
   `trans_resp_msg` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `rate_review` int DEFAULT NULL,
-  `datentime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `datentime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`booking_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `booking_order`
 --
 
 INSERT INTO `booking_order` (`booking_id`, `user_id`, `room_id`, `check_in`, `check_out`, `arrival`, `refund`, `booking_status`, `order_id`, `trans_id`, `trans_amt`, `trans_status`, `trans_resp_msg`, `rate_review`, `datentime`) VALUES
-(166, 44, 18, '2025-09-26', '2025-10-02', 0, NULL, 'booked', 'ORD_441446008', 'ORD_441446008', 36000, 'TXN_SUCCESS', 'Txn Success', NULL, '2025-09-25 10:40:27'),
 (167, 45, 16, '2025-09-26', '2025-09-27', 1, NULL, 'booked', 'ORD_454346722', 'ORD_454346722', 5000, 'TXN_SUCCESS', 'Txn Success', 1, '2025-09-25 12:47:07'),
 (168, 45, 16, '2025-09-26', '2025-09-27', 0, 1, 'cancelled', 'ORD_458885372', 'ORD_458885372', 5000, 'TXN_SUCCESS', 'Txn Success', NULL, '2025-09-25 12:50:50');
 
@@ -108,9 +110,10 @@ INSERT INTO `booking_order` (`booking_id`, `user_id`, `room_id`, `check_in`, `ch
 --
 
 CREATE TABLE `carousel` (
-  `sr_no` int NOT NULL,
-  `image` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `sr_no` int NOT NULL AUTO_INCREMENT,
+  `image` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `carousel`
@@ -129,7 +132,7 @@ INSERT INTO `carousel` (`sr_no`, `image`) VALUES
 --
 
 CREATE TABLE `contact_details` (
-  `sr_no` int NOT NULL,
+  `sr_no` int NOT NULL AUTO_INCREMENT,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gmap` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pn1` bigint NOT NULL,
@@ -138,8 +141,9 @@ CREATE TABLE `contact_details` (
   `fb` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `insta` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tw` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `iframe` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `iframe` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `contact_details`
@@ -155,7 +159,7 @@ INSERT INTO `contact_details` (`sr_no`, `address`, `gmap`, `pn1`, `pn2`, `email`
 --
 
 CREATE TABLE `dine_in_options` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `description` text COLLATE utf8mb4_general_ci NOT NULL,
   `open_hours` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
@@ -164,8 +168,9 @@ CREATE TABLE `dine_in_options` (
   `location` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `type_of_dine_in` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `dine_in_options`
@@ -183,12 +188,13 @@ INSERT INTO `dine_in_options` (`id`, `name`, `description`, `open_hours`, `image
 --
 
 CREATE TABLE `equipment` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `equipment_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `equipment_code` int NOT NULL,
   `quantity` int NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `description` text COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `equipment`
@@ -205,7 +211,7 @@ INSERT INTO `equipment` (`id`, `equipment_name`, `equipment_code`, `quantity`, `
 --
 
 CREATE TABLE `experience_options` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `description` text COLLATE utf8mb4_general_ci,
   `highlight` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -216,8 +222,9 @@ CREATE TABLE `experience_options` (
   `guide_email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `guide_phone` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `experience_options`
@@ -235,11 +242,12 @@ INSERT INTO `experience_options` (`id`, `name`, `description`, `highlight`, `ima
 --
 
 CREATE TABLE `facilities` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `icon` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `description` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `facilities`
@@ -259,9 +267,10 @@ INSERT INTO `facilities` (`id`, `icon`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `features` (
-  `id` int NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `features`
@@ -282,14 +291,15 @@ INSERT INTO `features` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `meal_plans` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `code` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `description` text COLLATE utf8mb4_general_ci,
   `status` tinyint(1) DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `meal_plans`
@@ -308,15 +318,16 @@ INSERT INTO `meal_plans` (`id`, `code`, `name`, `description`, `status`, `create
 --
 
 CREATE TABLE `rating_review` (
-  `sr_no` int NOT NULL,
+  `sr_no` int NOT NULL AUTO_INCREMENT,
   `booking_id` int NOT NULL,
   `room_id` int NOT NULL,
   `user_id` int NOT NULL,
   `rating` int NOT NULL,
   `review` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `seen` int NOT NULL DEFAULT '0',
-  `datentime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `datentime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `rating_review`
@@ -332,7 +343,7 @@ INSERT INTO `rating_review` (`sr_no`, `booking_id`, `room_id`, `user_id`, `ratin
 --
 
 CREATE TABLE `rooms` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `area` int NOT NULL,
   `price` int NOT NULL,
@@ -341,8 +352,9 @@ CREATE TABLE `rooms` (
   `children` int NOT NULL,
   `description` varchar(350) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint NOT NULL DEFAULT '1',
-  `removed` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `removed` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `rooms`
@@ -365,22 +377,17 @@ INSERT INTO `rooms` (`id`, `name`, `area`, `price`, `quantity`, `adult`, `childr
 --
 
 CREATE TABLE `room_facilities` (
-  `sr_no` int NOT NULL,
+  `sr_no` int NOT NULL AUTO_INCREMENT,
   `room_id` int NOT NULL,
-  `facilities_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `facilities_id` int NOT NULL,
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `room_facilities`
 --
 
 INSERT INTO `room_facilities` (`sr_no`, `room_id`, `facilities_id`) VALUES
-(164, 15, 20),
-(165, 15, 21),
-(166, 15, 22),
-(167, 15, 23),
-(168, 15, 24),
-(169, 15, 25),
 (185, 16, 27),
 (186, 16, 28),
 (187, 16, 31),
@@ -398,20 +405,17 @@ INSERT INTO `room_facilities` (`sr_no`, `room_id`, `facilities_id`) VALUES
 --
 
 CREATE TABLE `room_features` (
-  `sr_no` int NOT NULL,
+  `sr_no` int NOT NULL AUTO_INCREMENT,
   `room_id` int NOT NULL,
-  `features_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `features_id` int NOT NULL,
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `room_features`
 --
 
 INSERT INTO `room_features` (`sr_no`, `room_id`, `features_id`) VALUES
-(161, 15, 13),
-(162, 15, 14),
-(163, 15, 15),
-(164, 15, 17),
 (179, 16, 13),
 (180, 16, 14),
 (181, 16, 17),
@@ -431,18 +435,18 @@ INSERT INTO `room_features` (`sr_no`, `room_id`, `features_id`) VALUES
 --
 
 CREATE TABLE `room_images` (
-  `sr_no` int NOT NULL,
+  `sr_no` int NOT NULL AUTO_INCREMENT,
   `room_id` int NOT NULL,
   `image` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `thumb` tinyint NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `thumb` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `room_images`
 --
 
 INSERT INTO `room_images` (`sr_no`, `room_id`, `image`, `thumb`) VALUES
-(27, 15, 'IMG_80555.jpg', 1),
 (30, 16, 'IMG_26159.jpg', 0),
 (32, 19, 'IMG_15730.jpg', 0),
 (33, 19, 'IMG_34203.jpg', 1),
@@ -456,48 +460,18 @@ INSERT INTO `room_images` (`sr_no`, `room_id`, `image`, `thumb`) VALUES
 --
 
 CREATE TABLE `room_meal_plans` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `room_id` int NOT NULL,
   `meal_plan_id` int NOT NULL,
-  `price_modifier` decimal(10,2) DEFAULT '0.00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `price_modifier` decimal(10,2) DEFAULT '0.00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `room_meal_plans`
 --
 
 INSERT INTO `room_meal_plans` (`id`, `room_id`, `meal_plan_id`, `price_modifier`) VALUES
-(41, 7, 1, 0.00),
-(42, 7, 2, 200.00),
-(43, 7, 3, 400.00),
-(44, 7, 4, 800.00),
-(45, 8, 1, 0.00),
-(46, 8, 2, 0.00),
-(47, 8, 3, 0.00),
-(48, 8, 4, 0.00),
-(53, 9, 1, 0.00),
-(54, 9, 2, 1000.00),
-(55, 9, 3, 3500.00),
-(56, 9, 4, 4750.00),
-(69, 10, 2, 100.00),
-(70, 10, 3, 200.00),
-(71, 10, 4, 300.00),
-(72, 11, 2, 100.00),
-(73, 11, 3, 200.00),
-(74, 11, 4, 300.00),
-(82, 12, 2, 100.00),
-(83, 12, 3, 200.00),
-(84, 12, 4, 500.00),
-(85, 13, 2, 300.00),
-(86, 13, 3, 600.00),
-(87, 13, 4, 1200.00),
-(88, 14, 2, 100.00),
-(89, 14, 3, 300.00),
-(90, 14, 4, 400.00),
-(137, 15, 1, 0.00),
-(138, 15, 2, 2000.00),
-(139, 15, 3, 3000.00),
-(140, 15, 4, 5000.00),
 (169, 4, 1, 0.00),
 (170, 4, 2, 800.00),
 (171, 4, 3, 800.00),
@@ -534,11 +508,12 @@ INSERT INTO `room_meal_plans` (`id`, `room_id`, `meal_plan_id`, `price_modifier`
 --
 
 CREATE TABLE `settings` (
-  `sr_no` int NOT NULL,
+  `sr_no` int NOT NULL AUTO_INCREMENT,
   `site_title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `site_about` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shutdown` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `shutdown` tinyint(1) NOT NULL,
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `settings`
@@ -581,7 +556,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 CREATE TABLE `user_cred` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -596,8 +571,9 @@ CREATE TABLE `user_cred` (
   `status` int NOT NULL DEFAULT '1',
   `datentime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user_cred`
@@ -613,14 +589,15 @@ INSERT INTO `user_cred` (`id`, `name`, `email`, `address`, `phonenum`, `pincode`
 --
 
 CREATE TABLE `user_queries` (
-  `sr_no` int NOT NULL,
+  `sr_no` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `subject` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `datentime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `seen` tinyint NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `seen` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`sr_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user_queries`
@@ -636,13 +613,14 @@ INSERT INTO `user_queries` (`sr_no`, `name`, `email`, `subject`, `message`, `dat
 --
 
 CREATE TABLE `wedding_halls` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `package_pdf` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `wedding_halls`
@@ -660,11 +638,12 @@ INSERT INTO `wedding_halls` (`id`, `name`, `description`, `package_pdf`, `create
 --
 
 CREATE TABLE `wedding_images` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `wedding_id` int NOT NULL,
   `image_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `wedding_images`
@@ -687,13 +666,14 @@ INSERT INTO `wedding_images` (`id`, `wedding_id`, `image_path`, `created_at`) VA
 --
 
 CREATE TABLE `wedding_inquiries` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `wedding_id` int NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `wedding_inquiries`
@@ -709,71 +689,52 @@ INSERT INTO `wedding_inquiries` (`id`, `wedding_id`, `name`, `email`, `message`,
 --
 -- Indexes for table `admin_cred`
 --
-ALTER TABLE `admin_cred`
-  ADD PRIMARY KEY (`sr_no`);
 
 --
 -- Indexes for table `booking_details`
 --
 ALTER TABLE `booking_details`
-  ADD PRIMARY KEY (`sr_no`),
   ADD KEY `booking_id` (`booking_id`);
 
 --
 -- Indexes for table `booking_order`
 --
 ALTER TABLE `booking_order`
-  ADD PRIMARY KEY (`booking_id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `room_id` (`room_id`);
 
 --
 -- Indexes for table `carousel`
 --
-ALTER TABLE `carousel`
-  ADD PRIMARY KEY (`sr_no`);
 
 --
 -- Indexes for table `contact_details`
 --
-ALTER TABLE `contact_details`
-  ADD PRIMARY KEY (`sr_no`);
 
 --
 -- Indexes for table `dine_in_options`
 --
-ALTER TABLE `dine_in_options`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `equipment`
 --
-ALTER TABLE `equipment`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `experience_options`
 --
-ALTER TABLE `experience_options`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `facilities`
 --
-ALTER TABLE `facilities`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `features`
 --
-ALTER TABLE `features`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `meal_plans`
 --
 ALTER TABLE `meal_plans`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `code` (`code`),
   ADD KEY `idx_meal_plans_status` (`status`);
 
@@ -781,7 +742,6 @@ ALTER TABLE `meal_plans`
 -- Indexes for table `rating_review`
 --
 ALTER TABLE `rating_review`
-  ADD PRIMARY KEY (`sr_no`),
   ADD KEY `booking_id` (`booking_id`),
   ADD KEY `room_id` (`room_id`),
   ADD KEY `user_id` (`user_id`);
@@ -789,14 +749,11 @@ ALTER TABLE `rating_review`
 --
 -- Indexes for table `rooms`
 --
-ALTER TABLE `rooms`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `room_facilities`
 --
 ALTER TABLE `room_facilities`
-  ADD PRIMARY KEY (`sr_no`),
   ADD KEY `facilities id` (`facilities_id`),
   ADD KEY `room id` (`room_id`);
 
@@ -804,7 +761,6 @@ ALTER TABLE `room_facilities`
 -- Indexes for table `room_features`
 --
 ALTER TABLE `room_features`
-  ADD PRIMARY KEY (`sr_no`),
   ADD KEY `features id` (`features_id`),
   ADD KEY `rm id` (`room_id`);
 
@@ -812,14 +768,12 @@ ALTER TABLE `room_features`
 -- Indexes for table `room_images`
 --
 ALTER TABLE `room_images`
-  ADD PRIMARY KEY (`sr_no`),
   ADD KEY `room_id` (`room_id`);
 
 --
 -- Indexes for table `room_meal_plans`
 --
 ALTER TABLE `room_meal_plans`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_room_meal_plan` (`room_id`,`meal_plan_id`),
   ADD KEY `idx_room_meal_plans_room_id` (`room_id`),
   ADD KEY `idx_room_meal_plans_meal_plan_id` (`meal_plan_id`);
@@ -827,39 +781,29 @@ ALTER TABLE `room_meal_plans`
 --
 -- Indexes for table `settings`
 --
-ALTER TABLE `settings`
-  ADD PRIMARY KEY (`sr_no`);
 
 --
 -- Indexes for table `user_cred`
 --
-ALTER TABLE `user_cred`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user_queries`
 --
-ALTER TABLE `user_queries`
-  ADD PRIMARY KEY (`sr_no`);
 
 --
 -- Indexes for table `wedding_halls`
 --
-ALTER TABLE `wedding_halls`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `wedding_images`
 --
 ALTER TABLE `wedding_images`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `wedding_id` (`wedding_id`);
 
 --
 -- Indexes for table `wedding_inquiries`
 --
 ALTER TABLE `wedding_inquiries`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `wedding_id` (`wedding_id`);
 
 --
@@ -869,141 +813,72 @@ ALTER TABLE `wedding_inquiries`
 --
 -- AUTO_INCREMENT for table `admin_cred`
 --
-ALTER TABLE `admin_cred`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `booking_details`
 --
-ALTER TABLE `booking_details`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
-
 --
 -- AUTO_INCREMENT for table `booking_order`
 --
-ALTER TABLE `booking_order`
-  MODIFY `booking_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
-
 --
 -- AUTO_INCREMENT for table `carousel`
 --
-ALTER TABLE `carousel`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
-
 --
 -- AUTO_INCREMENT for table `contact_details`
 --
-ALTER TABLE `contact_details`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `dine_in_options`
 --
-ALTER TABLE `dine_in_options`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- AUTO_INCREMENT for table `equipment`
 --
-ALTER TABLE `equipment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
 --
 -- AUTO_INCREMENT for table `experience_options`
 --
-ALTER TABLE `experience_options`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
 -- AUTO_INCREMENT for table `facilities`
 --
-ALTER TABLE `facilities`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
 --
 -- AUTO_INCREMENT for table `features`
 --
-ALTER TABLE `features`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
 --
 -- AUTO_INCREMENT for table `meal_plans`
 --
-ALTER TABLE `meal_plans`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `rating_review`
 --
-ALTER TABLE `rating_review`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
 --
 -- AUTO_INCREMENT for table `rooms`
 --
-ALTER TABLE `rooms`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
 --
 -- AUTO_INCREMENT for table `room_facilities`
 --
-ALTER TABLE `room_facilities`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
-
 --
 -- AUTO_INCREMENT for table `room_features`
 --
-ALTER TABLE `room_features`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
-
 --
 -- AUTO_INCREMENT for table `room_images`
 --
-ALTER TABLE `room_images`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
-
 --
 -- AUTO_INCREMENT for table `room_meal_plans`
 --
-ALTER TABLE `room_meal_plans`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
-
 --
 -- AUTO_INCREMENT for table `settings`
 --
-ALTER TABLE `settings`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `user_cred`
 --
-ALTER TABLE `user_cred`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
-
 --
 -- AUTO_INCREMENT for table `user_queries`
 --
-ALTER TABLE `user_queries`
-  MODIFY `sr_no` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
 --
 -- AUTO_INCREMENT for table `wedding_halls`
 --
-ALTER TABLE `wedding_halls`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
 --
 -- AUTO_INCREMENT for table `wedding_images`
 --
-ALTER TABLE `wedding_images`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
 --
 -- AUTO_INCREMENT for table `wedding_inquiries`
 --
-ALTER TABLE `wedding_inquiries`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
 --
 -- Constraints for dumped tables
 --
