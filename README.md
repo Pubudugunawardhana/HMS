@@ -63,3 +63,11 @@ Sessions are stored in the `sessions` table, and new uploads go to Vercel Blob, 
 
 ### Local (XAMPP)
 Copy `.env.example` to `.env` and fill it in. Leave `BLOB_READ_WRITE_TOKEN` and `ASSET_BASE_URL` empty, so files are saved to `images/` and `uploads/` as before.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Security
+
+To report a vulnerability, see [SECURITY.md](SECURITY.md).
