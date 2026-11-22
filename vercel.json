@@ -8,11 +8,31 @@
     }
   },
   "routes": [
-    { "src": "/admin", "status": 308, "headers": { "Location": "/admin/" } },
-    { "src": "/(.*\.(sql|env|md|txt|lock|ini|log|sh))$", "status": 404 },
-    { "src": "/(?:inc|admin/inc|admin/classes|scripts|README)/(.*)", "status": 404 },
-    { "src": "/(.*\.php)$", "dest": "/api/index.php?__route=$1" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/api/index.php?__route=$1" }
+    {
+      "src": "/admin",
+      "status": 308,
+      "headers": {
+        "Location": "/admin/"
+      }
+    },
+    {
+      "src": "/(.*\\.(sql|env|md|txt|lock|ini|log|sh))$",
+      "status": 404
+    },
+    {
+      "src": "/(?:inc|admin/inc|admin/classes|scripts|README)/(.*)",
+      "status": 404
+    },
+    {
+      "src": "/(.*\\.php)$",
+      "dest": "/api/index.php?__route=$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php?__route=$1"
+    }
   ]
 }
