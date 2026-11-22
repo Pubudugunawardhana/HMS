@@ -28,6 +28,18 @@
       "dest": "/api/index.php?__route=$1"
     },
     {
+      "src": "/",
+      "dest": "/api/index.php?__route=index.php"
+    },
+    {
+      "src": "/(.*)/$",
+      "dest": "/api/index.php?__route=$1/index.php"
+    },
+    {
+      "src": "/(.*\\.(php|phtml|inc))(\\?.*)?$",
+      "dest": "/api/index.php?__route=$1"
+    },
+    {
       "handle": "filesystem"
     },
     {
